@@ -56,7 +56,8 @@ namespace CouncilWise
             receiptResult = ProcessReceiptItems(items);
             Console.WriteLine(receiptResult.ToString());
 
-            // TODO: Add more test cases here to capture any edge cases you can think of 
+            // TODO: Add more test cases here to capture any edge cases you can think of
+
         }
 
         /// <summary>
@@ -66,7 +67,39 @@ namespace CouncilWise
         /// <returns>processed receipt</returns>
         static Receipt ProcessReceiptItems(ICollection<ReceiptItem> items)
         {
-            throw new NotImplementedException();
+            Receipt receipt = new Receipt();
+            receipt.Items = new List<ReceiptItem>();
+            foreach (ReceiptItem receiptItem in items)
+            {
+
+                string receiptItemString = receiptItem.Name.Trim();
+                char[] receiptNameArr = receiptItemString.ToCharArray();
+                Array.Reverse(receiptNameArr);
+                string newReceiptName = new string(receiptNameArr);
+
+                if (newReceiptName == receiptItemString)
+                {
+                    receiptItem.UnitPrice = 0;
+                }
+
+
+                if (receiptItem.IncludesTax == true)
+                {
+                    receiptItem.TaxAmount = receiptItem.UnitPrice / 11;
+                }
+                receiptItem.TaxAmount = receiptItem.UnitPrice * Helper.TaxRate;
+                receiptItem.TotalAmount = receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
+
+                receipt.Items.Add(receiptItem);
+                receipt.Total += receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
+                receipt.TaxTotal += receiptItem.TotalAmount;
+
+            }
+            return receipt;
+
         }
+
+
     }
 }
+

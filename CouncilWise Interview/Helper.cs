@@ -8,7 +8,7 @@ namespace CouncilWise
 {
     public static class Helper
     {
-        const decimal TaxRate = 0.1m;
+       public const decimal TaxRate = 0.1m;
 
         public static decimal CurrencyRound(this decimal value)
         {

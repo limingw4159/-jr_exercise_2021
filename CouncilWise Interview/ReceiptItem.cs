@@ -13,5 +13,6 @@ namespace CouncilWise
         public decimal UnitPrice { get; set; }
         public bool IncludesTax { get; set; }
         public decimal TaxAmount { get; set; }
+        public decimal TotalAmount { get; set; }
     }
 }

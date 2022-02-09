@@ -64,6 +64,17 @@ namespace CouncilWise
             items.Add(new ReceiptItem { Name = "star link", Quantity = 10000, UnitPrice = 29m, IncludesTax = true });
             items.Add(new ReceiptItem { Name = "Telsa", Quantity = 7, UnitPrice = 1.9m, IncludesTax = false }) ;
             items.Add(new ReceiptItem { Name = "aaaaaa", Quantity = 7, UnitPrice = 1.9m, IncludesTax = false });
+
+      
+            items.Add(new ReceiptItem { Name = "asdddfdbbbbbb", Quantity = 5, UnitPrice = 1.03m, IncludesTax = false });
+            items.Add(new ReceiptItem { Name = "new generation robot", Quantity = 19, UnitPrice = 0.3m, IncludesTax = true });
+            items.Add(new ReceiptItem { Name = "toyota", Quantity = 10000, UnitPrice = 29m, IncludesTax = false });
+
+            //the following data UnitPrice or Quantity are less than 0;
+
+            //items.Add(new ReceiptItem { Name = "audi", Quantity = -7, UnitPrice = 1.9m, IncludesTax = false });
+            //items.Add(new ReceiptItem { Name = "iphone", Quantity = 7, UnitPrice = -1.9m, IncludesTax = false });
+            //items.Add(new ReceiptItem { Name = "gdstrtdd", Quantity = -4, UnitPrice = 1.15m, IncludesTax = false });
             receiptResult = ProcessReceiptItems(items);
             Console.WriteLine(receiptResult.ToString());
         }
@@ -90,17 +101,23 @@ namespace CouncilWise
                     receiptItem.UnitPrice = 0;
                 }
 
-
                 if (receiptItem.IncludesTax == true)
                 {
                     receiptItem.TaxAmount = receiptItem.UnitPrice / 11;
                 }
-                receiptItem.TaxAmount = receiptItem.UnitPrice * Helper.TaxRate;
-                receiptItem.TotalAmount = receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
+                if (receiptItem.UnitPrice >= 0 && receiptItem.Quantity >= 0)
+                {
+                    receiptItem.TaxAmount = receiptItem.UnitPrice * Helper.TaxRate;
+                    receiptItem.TotalAmount = receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
 
-                receipt.Items.Add(receiptItem);
-                receipt.Total += receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
-                receipt.TaxTotal += receiptItem.TotalAmount;
+                    receipt.Items.Add(receiptItem);
+                    receipt.Total += receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
+                    receipt.TaxTotal += receiptItem.TotalAmount;
+
+                }
+                else {
+                    throw new ArgumentException("The UnitPrice or TaxAmount must more than 0");
+                }
 
             }
             return receipt;

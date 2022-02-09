@@ -57,7 +57,15 @@ namespace CouncilWise
             Console.WriteLine(receiptResult.ToString());
 
             // TODO: Add more test cases here to capture any edge cases you can think of
-
+            items = new List<ReceiptItem>();
+            items.Add(new ReceiptItem { Name = "gdstrtdd ddtrtsdg", Quantity = 4, UnitPrice = 1.15m, IncludesTax = true });
+            items.Add(new ReceiptItem { Name = "asdddfd aasdddd", Quantity = 5, UnitPrice = 1.03m, IncludesTax = false });
+            items.Add(new ReceiptItem { Name = "new generation robot", Quantity = 19, UnitPrice = 0.3m, IncludesTax = true });
+            items.Add(new ReceiptItem { Name = "star link", Quantity = 10000, UnitPrice = 29m, IncludesTax = true });
+            items.Add(new ReceiptItem { Name = "Telsa", Quantity = 7, UnitPrice = 1.9m, IncludesTax = false }) ;
+            items.Add(new ReceiptItem { Name = "aaaaaa", Quantity = 7, UnitPrice = 1.9m, IncludesTax = false });
+            receiptResult = ProcessReceiptItems(items);
+            Console.WriteLine(receiptResult.ToString());
         }
 
         /// <summary>

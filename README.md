@@ -1,6 +1,16 @@
 # jr_exercise_2021
 Simple programming exercise for junior developer candidates
 
+# Tech Stack:
+
+- .net
+
+# How to run this application
+
+- Navigate the root folder/ jr_exercise_2021
+- Open the CouncilWise Exercise.sln through the Visual Studio 
+- Click Run button on the Menu bar
+
 # Requirements:
 
 * Given a list of receipt items where TaxAmount is not populated, calculate the correct tax for each receipt item. If IncludesGST is true, the unit price contains tax already. (In this case you will need to divide by 11 to get the tax amount). 
@@ -26,3 +36,4 @@ Receipt:
    Total:   <Total inc. Tax>
    GST:     <TaxTotal>
 ```
+

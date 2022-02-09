@@ -72,9 +72,9 @@ namespace CouncilWise
 
             //the following data UnitPrice or Quantity are less than 0;
 
-            //items.Add(new ReceiptItem { Name = "audi", Quantity = -7, UnitPrice = 1.9m, IncludesTax = false });
-            //items.Add(new ReceiptItem { Name = "iphone", Quantity = 7, UnitPrice = -1.9m, IncludesTax = false });
-            //items.Add(new ReceiptItem { Name = "gdstrtdd", Quantity = -4, UnitPrice = 1.15m, IncludesTax = false });
+            items.Add(new ReceiptItem { Name = "audi", Quantity = -7, UnitPrice = 1.9m, IncludesTax = false });
+            items.Add(new ReceiptItem { Name = "iphone", Quantity = 7, UnitPrice = -1.9m, IncludesTax = false });
+            items.Add(new ReceiptItem { Name = "gdstrtdd", Quantity = -4, UnitPrice = 1.15m, IncludesTax = false });
             receiptResult = ProcessReceiptItems(items);
             Console.WriteLine(receiptResult.ToString());
         }
@@ -105,19 +105,18 @@ namespace CouncilWise
                 {
                     receiptItem.TaxAmount = receiptItem.UnitPrice / 11;
                 }
-                if (receiptItem.UnitPrice >= 0 && receiptItem.Quantity >= 0)
+                if (receiptItem.UnitPrice <0 || receiptItem.Quantity < 0)
                 {
-                    receiptItem.TaxAmount = receiptItem.UnitPrice * Helper.TaxRate;
-                    receiptItem.TotalAmount = receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
-
-                    receipt.Items.Add(receiptItem);
-                    receipt.Total += receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
-                    receipt.TaxTotal += receiptItem.TotalAmount;
-
-                }
-                else {
                     throw new ArgumentException("The UnitPrice or TaxAmount must more than 0");
+   
                 }
+
+                receiptItem.TaxAmount = receiptItem.UnitPrice * Helper.TaxRate;
+                receiptItem.TotalAmount = receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
+
+                receipt.Items.Add(receiptItem);
+                receipt.Total += receiptItem.Quantity * (receiptItem.UnitPrice + receiptItem.TaxAmount);
+                receipt.TaxTotal += receiptItem.TotalAmount;
 
             }
             return receipt;
